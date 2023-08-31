@@ -1,0 +1,17 @@
+.content {
+    min-height: calc(100vh - 150px); /* Adjust this value as needed */
+}
+
+/* Style for the footer */
+.footer {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+    text-align: center;
+}
+
+/* Style for the footer */
+.footer {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+    text-align: center;
+}
