@@ -21,12 +21,12 @@ function Kanban() {
     return (
         <>
             {/*new button*/}
-            <div className="row">
+            <div>
                 <div className="d-flex justify-content-between">
-                    <div className="p-1">
+                    <div className="">
                         <h3>Listagem de Boards para Tabela Kanban</h3>
                     </div>
-                    <div className="p-1">
+                    <div className="">
                         <button className="btn btn-outline-secondary" onClick={() => {
                             router.push('/kanban-board/new');
                         }}>
