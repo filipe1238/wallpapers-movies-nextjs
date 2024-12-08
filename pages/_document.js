@@ -4,9 +4,8 @@ import Menu from '../components/menu/Menu'
 import useGetCurrentTheme from '../hooks/useGetCurrentTheme';
 
 export default function Document() {
-  const [theme, setTheme] = useState(useGetCurrentTheme() || "dark");
   return (
-    <Html data-bs-theme={theme} lang="en">
+    <Html data-bs-theme={"dark"} lang="en">
       <Head />
       <body>
         <Menu />

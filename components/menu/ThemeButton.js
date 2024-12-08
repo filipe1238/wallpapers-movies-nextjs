@@ -1,34 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
-import useGetCurrentTheme from "../../hooks/useGetCurrentTheme";
 import { Button } from "react-bootstrap";
 
 function ThemeButton() {
-  // If there is no theme set, the theme will be light
-  const [theme, setTheme] = useState(useGetCurrentTheme());
+    const [theme, setTheme] = useState("light");
+    const [isMounted, setIsMounted] = useState(false); // To check if component is mounted
 
-  useEffect(() => {
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+    useEffect(() => {
+        setIsMounted(true);
+        const storedTheme = localStorage.getItem("theme") || "light";
+        setTheme(storedTheme);
+    }, []);
 
-  const toggleTheme = () => {
-    console.log("toggleTheme");
-  };
+    useEffect(() => {
+        if (isMounted) {
+            document.documentElement.setAttribute("data-bs-theme", theme);
+            localStorage.setItem("theme", theme);
+        }
+    }, [theme, isMounted]);
 
-  return (
-    <>
-      {theme === "dark" ? (
-        <Button variant="" onClick={() => toggleTheme()}>
-          <FontAwesomeIcon icon={faSun} />
+    const toggleTheme = () => {
+        const newTheme = theme === "dark" ? "light" : "dark";
+        setTheme(newTheme); // Update the theme state
+    };
+
+    if (!isMounted) return null; // Prevent rendering on the server side
+
+    return (
+        <Button variant="link" onClick={toggleTheme}>
+            {theme === "dark" ? (
+                <FontAwesomeIcon icon={faSun} title="Switch to light mode" />
+            ) : (
+                <FontAwesomeIcon icon={faMoon} title="Switch to dark mode" />
+            )}
         </Button>
-      ) : (
-        <Button variant="" onClick={() => toggleTheme()}>
-          <FontAwesomeIcon icon={faMoon} />
-        </Button>
-      )}
-    </>
-  );
+    );
 }
 
 export default ThemeButton;
